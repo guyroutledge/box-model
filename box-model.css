@@ -78,13 +78,25 @@ fieldset {
 label, input {
 	display:inline-block;
 	margin:0 0 0.25em;
+	vertical-align:middle;
 }
 label {
 	width:40%;
-	font-size:0.875em;
+	font-size:0.8em;
 }
 input[type="range"] {
 	width:55%;
+}
+.box-link-properties {
+	margin-bottom:0.5em;
+	padding:0;
+	border:0;
+}
+.box-link-properties label {
+	width:auto;
+}
+.box-link-properties input {
+	margin-right:0.5em;
 }
 
 /* Code */

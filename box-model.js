@@ -19,6 +19,10 @@ $(function(){
 			$('.box-controls input').change(boxModel.getBoxProperties).trigger('change');
 		},
 		getBoxProperties: function(){
+			var linkMarginTopBottom = $('#linkMarginTopBottom').is(':checked');
+			var linkMarginRightLeft = $('#linkMarginRightLeft').is(':checked');
+			var linkMarginAll = $('#linkMarginAll').is(':checked');
+
 			boxModel.boxWidth         = parseInt($('#boxWidth').val(), 10);
 			boxModel.boxHeight        = parseInt($('#boxHeight').val(), 10);
 			boxModel.boxMarginTop     = parseInt($('#boxMarginTop').val(), 10);
@@ -33,6 +37,21 @@ $(function(){
 			boxModel.boxBorderRight   = parseInt($('#boxBorderRight').val(), 10);
 			boxModel.boxBorderBottom  = parseInt($('#boxBorderBottom').val(), 10);
 			boxModel.boxBorderLeft    = parseInt($('#boxBorderLeft').val(), 10);
+
+			if ( linkMarginTopBottom ) {
+				$('#boxMarginBottom').val(boxModel.boxMarginTop);
+				boxModel.boxMarginBottom = boxModel.boxMarginTop;
+			}
+			if ( linkMarginRightLeft ) {
+				$('#boxMarginLeft').val(boxModel.boxMarginRight);
+				boxModel.boxMarginLeft = boxModel.boxMarginRight;
+			}
+			if ( linkMarginAll ) {
+				$('#boxMarginRight, #boxMarginBottom, #boxMarginLeft').val(boxModel.boxMarginTop);
+				boxModel.boxMarginRight = boxModel.boxMarginTop;
+				boxModel.boxMarginBottom = boxModel.boxMarginTop;
+				boxModel.boxMarginLeft = boxModel.boxMarginTop;
+			}
 
 			boxModel.positionBoxProperties();
 		},

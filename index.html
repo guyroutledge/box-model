@@ -39,6 +39,18 @@
 				</fieldset>
 				<fieldset>
 					<legend>Margin</legend>
+
+					<fieldset class="box-link-properties">
+						<label for="linkMarginNone">Link None</label>
+						<input type="radio" name="linkMargin[]" id="linkMarginNone" checked>
+						<label for="linkMarginTopBottom">Link T/B</label>
+						<input type="radio" name="linkMargin[]" id="linkMarginTopBottom">
+						<label for="linkMarginRightLeft">Link R/L</label>
+						<input type="radio" name="linkMargin[]" id="linkMarginRightLeft">
+						<label for="linkMarginAll">All</label>
+						<input type="radio" name="linkMargin[]" id="linkMarginAll">
+					</fieldset>
+
 					<label for="boxMarginTop">Margin Top:</label>
 					<input type="range" min="0" max="100" name="boxMarginTop" id="boxMarginTop" value="20" step="5">
 					<label for="boxMarginRight">Margin Right:</label>
