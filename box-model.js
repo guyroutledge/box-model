@@ -80,12 +80,12 @@ $(function(){
 			var topAndBottomMatch = boxModel['box' + property + 'Top'] === boxModel['box' + property + 'Bottom'];
 			var topAndBottomNoMatch = boxModel['box' + property + 'Top'] !== boxModel['box' + property + 'Bottom'];
 			var leftAndRightMatch = boxModel['box' + property + 'Left'] === boxModel['box' + property + 'Right'];
-			var allMatch = (boxModel['box' + property + 'Top'] + boxModel['box' + property + 'Bottom'] === boxModel['box' + property + 'Left'] + boxModel['box' + property + 'Right']) && leftAndRightMatch && topAndBottomMatch;
+			var allMatch = (boxModel['box' + property + 'Top'] + boxModel['box' + property + 'Bottom'] === boxModel['box' + property + 'Left'] + boxModel['box' + property + 'Right']) && (leftAndRightMatch && topAndBottomMatch);
 
 			if ( allMatch ) {
 				return boxModel['box' + property + 'Top'] + 'px;\n';
 			} else if ( topAndBottomMatch && leftAndRightMatch ) {
-				return boxModel.box['box' + 'Top'] + 'px ' + boxModel['box' + property + 'Left'] + 'px;\n';
+				return boxModel['box' + property + 'Top'] + 'px ' + boxModel['box' + property + 'Left'] + 'px;\n';
 			} else if ( topAndBottomNoMatch && leftAndRightMatch ) {
 				return boxModel['box' + property + 'Top'] + 'px ' + boxModel['box' + property + 'Left'] + 'px ' + boxModel['box' + property + 'Bottom'] + 'px;\n';
 			} else {
