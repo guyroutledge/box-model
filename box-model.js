@@ -36,6 +36,23 @@ $(function(){
 
 			boxModel.positionBoxProperties();
 		},
+		generateCode: function(){
+			console.log('code');
+			var boxCode;
+
+			boxCode  = '.box {\n';
+			boxCode += '    width: ' + boxModel.boxWidth + 'px;\n';
+			boxCode += '    height: ' + boxModel.boxHeight + 'px;\n';
+			boxCode += '    margin: ' + boxModel.boxMarginTop + 'px ' + boxModel.boxMarginRight + 'px ' + boxModel.boxMarginBottom + 'px ' + boxModel.boxMarginLeft + 'px;\n';
+			boxCode += '    padding: ' + boxModel.boxPaddingTop + 'px ' + boxModel.boxPaddingRight + 'px ' + boxModel.boxPaddingBottom + 'px ' + boxModel.boxPaddingLeft + 'px;\n';
+			boxCode += '    border-width: ' + boxModel.boxBorderTop + 'px ' + boxModel.boxBorderRight + 'px ' + boxModel.boxBorderBottom + 'px ' + boxModel.boxBorderLeft + 'px;\n';
+			boxCode += '\n';
+			boxCode += '    /* border-style and border-color must\n'
+			boxCode += '       be set for border-width to apply */\n';
+			boxCode += '}';
+
+			$('#boxCode').text(boxCode);
+		},
 		positionBoxProperties: function(){
 			var boxWidth = boxModel.boxWidth;
 			var boxHeight = boxModel.boxHeight;
@@ -125,6 +142,8 @@ $(function(){
 				top: boxMarginTop + 'px',
 				left: boxMarginLeft + 'px'
 			});
+
+			boxModel.generateCode();
 		}
 	};
 
