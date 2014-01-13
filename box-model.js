@@ -2,7 +2,7 @@ $(function(){
 	var boxModel = {
 
 		$box: $('.box'),
-		$boxInner: $('<div class="box-inner box-property" data-property="width x height"></div>'),
+		$boxInner: $('<div class="box-inner box-property" data-property="content"></div>'),
 		$boxMargin: $('<div class="box-margin box-property" data-property="margin"></div>'),
 		$boxPadding: $('<div class="box-padding box-property" data-property="padding"></div>'),
 		$boxBorder: $('<div class="box-border box-property" data-property="border"></div>'),
@@ -104,7 +104,7 @@ $(function(){
 				boxCode += '\n';
 			}
 
-			boxCode += '    width: ' + boxModel.boxWidth + 'px;\n';
+			boxCode += '    width: <span contenteditable type="number" pattern="[0-9]{1,3}">' + boxModel.boxWidth + '</span>px;\n';
 			boxCode += '    height: ' + boxModel.boxHeight + 'px;\n';
 
 			boxCode += '    margin: ' + boxModel.generateShorthand('Margin');
@@ -116,7 +116,7 @@ $(function(){
 			boxCode += '       be set for border-width to apply */\n';
 			boxCode += '}';
 
-			$('#boxCode').text(boxCode);
+			$('#boxCode').html(boxCode);
 		},
 		showPropertyOnHover: function(){
 			$('.box-property').hover(function(){
