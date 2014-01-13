@@ -18,6 +18,7 @@ $(function(){
 			);
 			$('.box-property').append('<span class="box-property-vertical"></span><span class="box-property-horizontal"></span>');
 			$('.box-controls input').change(boxModel.getBoxProperties);
+			$('body').height($('.box-controls').height());
 			boxModel.getBoxProperties();
 			boxModel.showPropertyOnHover();
 		},
