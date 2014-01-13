@@ -2,10 +2,10 @@ $(function(){
 	var boxModel = {
 
 		$box: $('.box'),
-		$boxInner: $('<div class="box-property box-inner"></div>'),
-		$boxMargin: $('<div class="box-margin box-property"></div>'),
-		$boxPadding: $('<div class="box-padding box-property"></div>'),
-		$boxBorder: $('<div class="box-border box-property"></div>'),
+		$boxInner: $('<div class="box-inner box-property" data-property="width x height"></div>'),
+		$boxMargin: $('<div class="box-margin box-property" data-property="margin"></div>'),
+		$boxPadding: $('<div class="box-padding box-property" data-property="padding"></div>'),
+		$boxBorder: $('<div class="box-border box-property" data-property="border"></div>'),
 
 		boxSizing: 'content-box',
 
@@ -18,6 +18,7 @@ $(function(){
 			);
 			$('.box-controls input').change(boxModel.getBoxProperties);
 			boxModel.getBoxProperties();
+			boxModel.showPropertyOnHover();
 		},
 		getBoxProperties: function(){
 			var propertiesToLink = ['Margin', 'Padding', 'Border'];
@@ -116,6 +117,11 @@ $(function(){
 			boxCode += '}';
 
 			$('#boxCode').text(boxCode);
+		},
+		showPropertyOnHover: function(){
+			$('.box-property').hover(function(){
+				$('.box-inner').attr('data-hover-property', $(this).attr('data-property'));
+			});
 		},
 		positionBoxProperties: function(){
 			// Margin

@@ -20,12 +20,20 @@ p {
 	width:100%;
 	height:100%;
 }
+.box:hover .box-property {
+	background:#fff;
+}
 .box-inner {
 	background:#9fc4e7;
 	border:1px solid #666;
+
+	font-family:'Ubuntu Mono', 'Courier New', monospace;
 	text-align:center;
 	line-height:1em;
 	z-index:30;
+}
+.box-inner:hover {
+	background:#9fc4e7!important;
 }
 .box-inner:before {
 	content:attr(data-width) ' x ' attr(data-height);
@@ -37,6 +45,9 @@ p {
 
 	width:100%;
 }
+.box:hover .box-inner:before {
+	content:attr(data-hover-property);
+}
 .box-padding {
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
@@ -45,16 +56,26 @@ p {
 	border:1px dashed #666;
 	z-index:20;
 }
+.box-padding:hover {
+	background-color:#c2ddb6!important;
+}
 .box-margin {
 	background:#f8cb9c;
 	border:1px dashed #666;
 	z-index:0;
+}
+.box-margin:hover {
+	background:#f8cb9c!important;
 }
 .box-border {
 	background:#feedbb;
 	border:1px solid #666;
 	z-index:10;
 }
+.box-border:hover {
+	background:#feedbb!important;
+}
+
 
 /* Generated Dimensions */
 
