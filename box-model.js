@@ -20,8 +20,9 @@ $(function(){
 			boxModel.getBoxProperties();
 		},
 		getBoxProperties: function(){
-			console.log('get properties');
 			var propertiesToLink = ['Margin', 'Padding', 'Border'];
+
+			boxModel.boxSizing = $('#borderBox').is(':checked') ? 'border-box' : 'content-box';
 
 			boxModel.boxWidth         = parseInt($('#boxWidth').val(), 10);
 			boxModel.boxHeight        = parseInt($('#boxHeight').val(), 10);
@@ -42,7 +43,6 @@ $(function(){
 			boxModel.positionBoxProperties();
 		},
 		linkProperties: function(properties) {
-			console.log('link properties');
 			var i, linkTB, linkRL, linkAll;
 
 			for ( i = 0; i < properties.length; i++ ) {
@@ -96,6 +96,13 @@ $(function(){
 			var boxCode;
 
 			boxCode  = '.box {\n';
+
+			if ( boxModel.boxSizing === 'border-box' ) {
+				boxCode += '    -moz-box-sizing: border-box;\n';
+				boxCode += '         box-sizing: border-box;\n';
+				boxCode += '\n';
+			}
+
 			boxCode += '    width: ' + boxModel.boxWidth + 'px;\n';
 			boxCode += '    height: ' + boxModel.boxHeight + 'px;\n';
 
@@ -104,17 +111,13 @@ $(function(){
 			boxCode += '    border-width: ' + boxModel.generateShorthand('Border');
 
 			boxCode += '\n';
-			boxCode += '    /* border-style and border-color must\n'
+			boxCode += '    /* border-style and border-color must\n';
 			boxCode += '       be set for border-width to apply */\n';
 			boxCode += '}';
 
 			$('#boxCode').text(boxCode);
 		},
 		positionBoxProperties: function(){
-			console.log('position');
-			var boxWidth = boxModel.boxWidth;
-			var boxHeight = boxModel.boxHeight;
-
 			// Margin
 			var boxMarginTop = boxModel.boxMarginTop;
 			var boxMarginLeft = boxModel.boxMarginLeft;
@@ -137,6 +140,9 @@ $(function(){
 			// reposition to avoid overlap of page elements
 			var boxTop = boxMarginTop + boxBorderTop + boxPaddingTop + 6;
 			var boxLeft = boxMarginLeft + boxBorderLeft + boxPaddingLeft;
+
+			var boxWidth = boxModel.boxSizing === 'border-box' ? boxModel.boxWidth - boxPaddingLeftRight - boxBorderLeftRight : boxModel.boxWidth;
+			var boxHeight = boxModel.boxSizing === 'border-box' ? boxModel.boxHeight - boxPaddingTopBottom - boxBorderTopBottom : boxModel.boxHeight;
 
 			// Margin Box
 			var boxMarginWidth = boxWidth + boxMarginLeftRight + boxPaddingLeftRight + boxBorderLeftRight;
@@ -179,8 +185,8 @@ $(function(){
 				width: boxWidth + 'px',
 				height: boxHeight + 'px'
 			}).attr({
-				'data-width': boxWidth,
-				'data-height': boxHeight
+				'data-width': $('#boxWidth').val(),
+				'data-height': $('#boxHeight').val()
 			});
 
 			boxModel.$boxPadding.css({
@@ -196,17 +202,15 @@ $(function(){
 				left: boxBorderLeft + 'px'
 			});
 
-			if ( boxModel.boxSizing === 'content-box' ) {
-				$('#generatedWidth').text(boxBorderWidth);
-				$('#generatedHeight').text(boxBorderHeight);
-			}
-
 			boxModel.$boxMargin.css({
 				width: boxMarginWidth + 'px',
 				height: boxMarginHeight + 'px',
 				top: boxMarginTop + 'px',
 				left: boxMarginLeft + 'px'
 			});
+
+			$('#generatedWidth').text(boxBorderWidth);
+			$('#generatedHeight').text(boxBorderHeight);
 
 			boxModel.generateCode();
 		}
