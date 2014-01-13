@@ -52,16 +52,19 @@ $(function(){
 				linkAll = $('#link' + properties[i] + 'All').is(':checked');
 
 				if ( linkTB ) {
+					boxModel['linked' + properties[i] + 'TB'] = true;
 					boxModel['box' + properties[i] + 'Top'] = boxModel['box' + properties[i] + 'Top'];
 					boxModel['box' + properties[i] + 'Bottom'] = boxModel['box' + properties[i] + 'Top'];
 					$('#box' + properties[i] + 'Bottom').val(boxModel['box' + properties[i] + 'Top']);
 				}
 				if ( linkRL ) {
+					boxModel['linked' + properties[i] + 'RL'] = true;
 					boxModel['box' + properties[i] + 'Left'] = boxModel['box' + properties[i] + 'Right'];
 					boxModel['box' + properties[i] + 'Left'] = boxModel['box' + properties[i] + 'Left'];
 					$('#box' + properties[i] + 'Left').val(boxModel['box' + properties[i] + 'Left']);
 				}
 				if ( linkAll ) {
+					boxModel['linked' + properties[i] + 'All'] = true;
 					boxModel['box' + properties[i] + 'Top'] = boxModel['box' + properties[i] + 'Top'];
 					boxModel['box' + properties[i] + 'Right'] = boxModel['box' + properties[i] + 'Top'];
 					boxModel['box' + properties[i] + 'Bottom'] = boxModel['box' + properties[i] + 'Top'];
@@ -73,16 +76,33 @@ $(function(){
 
 			}
 		},
+		generateShorthand: function(property) {
+			var topAndBottomMatch = boxModel['box' + property + 'Top'] === boxModel['box' + property + 'Bottom'];
+			var topAndBottomNoMatch = boxModel['box' + property + 'Top'] !== boxModel['box' + property + 'Bottom'];
+			var leftAndRightMatch = boxModel['box' + property + 'Left'] === boxModel['box' + property + 'Right'];
+			var allMatch = (boxModel['box' + property + 'Top'] + boxModel['box' + property + 'Bottom'] === boxModel['box' + property + 'Left'] + boxModel['box' + property + 'Right']) && leftAndRightMatch && topAndBottomMatch;
+
+			if ( allMatch ) {
+				return boxModel['box' + property + 'Top'] + 'px;\n';
+			} else if ( topAndBottomMatch && leftAndRightMatch ) {
+				return boxModel.box['box' + 'Top'] + 'px ' + boxModel['box' + property + 'Left'] + 'px;\n';
+			} else if ( topAndBottomNoMatch && leftAndRightMatch ) {
+				return boxModel['box' + property + 'Top'] + 'px ' + boxModel['box' + property + 'Left'] + 'px ' + boxModel['box' + property + 'Bottom'] + 'px;\n';
+			} else {
+				return boxModel['box' + property + 'Top'] + 'px ' + boxModel['box' + property + 'Right'] + 'px ' + boxModel['box' + property + 'Bottom'] + 'px ' + boxModel['box' + property + 'Left'] + 'px;\n';
+			}
+		},
 		generateCode: function(){
 			var boxCode;
-			console.log('code');
 
 			boxCode  = '.box {\n';
 			boxCode += '    width: ' + boxModel.boxWidth + 'px;\n';
 			boxCode += '    height: ' + boxModel.boxHeight + 'px;\n';
-			boxCode += '    margin: ' + boxModel.boxMarginTop + 'px ' + boxModel.boxMarginRight + 'px ' + boxModel.boxMarginBottom + 'px ' + boxModel.boxMarginLeft + 'px;\n';
-			boxCode += '    padding: ' + boxModel.boxPaddingTop + 'px ' + boxModel.boxPaddingRight + 'px ' + boxModel.boxPaddingBottom + 'px ' + boxModel.boxPaddingLeft + 'px;\n';
-			boxCode += '    border-width: ' + boxModel.boxBorderTop + 'px ' + boxModel.boxBorderRight + 'px ' + boxModel.boxBorderBottom + 'px ' + boxModel.boxBorderLeft + 'px;\n';
+
+			boxCode += '    margin: ' + boxModel.generateShorthand('Margin');
+			boxCode += '    padding: ' + boxModel.generateShorthand('Padding');
+			boxCode += '    border-width: ' + boxModel.generateShorthand('Border');
+
 			boxCode += '\n';
 			boxCode += '    /* border-style and border-color must\n'
 			boxCode += '       be set for border-width to apply */\n';
