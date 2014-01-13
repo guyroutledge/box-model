@@ -16,12 +16,12 @@ $(function(){
 				boxModel.$boxPadding,
 				boxModel.$boxBorder
 			);
-			$('.box-controls input').change(boxModel.getBoxProperties).trigger('change');
+			$('.box-controls input').change(boxModel.getBoxProperties);
+			boxModel.getBoxProperties();
 		},
 		getBoxProperties: function(){
-			var linkMarginTopBottom = $('#linkMarginTopBottom').is(':checked');
-			var linkMarginRightLeft = $('#linkMarginRightLeft').is(':checked');
-			var linkMarginAll = $('#linkMarginAll').is(':checked');
+			console.log('get properties');
+			var propertiesToLink = ['Margin', 'Padding', 'Border'];
 
 			boxModel.boxWidth         = parseInt($('#boxWidth').val(), 10);
 			boxModel.boxHeight        = parseInt($('#boxHeight').val(), 10);
@@ -38,26 +38,44 @@ $(function(){
 			boxModel.boxBorderBottom  = parseInt($('#boxBorderBottom').val(), 10);
 			boxModel.boxBorderLeft    = parseInt($('#boxBorderLeft').val(), 10);
 
-			if ( linkMarginTopBottom ) {
-				$('#boxMarginBottom').val(boxModel.boxMarginTop);
-				boxModel.boxMarginBottom = boxModel.boxMarginTop;
-			}
-			if ( linkMarginRightLeft ) {
-				$('#boxMarginLeft').val(boxModel.boxMarginRight);
-				boxModel.boxMarginLeft = boxModel.boxMarginRight;
-			}
-			if ( linkMarginAll ) {
-				$('#boxMarginRight, #boxMarginBottom, #boxMarginLeft').val(boxModel.boxMarginTop);
-				boxModel.boxMarginRight = boxModel.boxMarginTop;
-				boxModel.boxMarginBottom = boxModel.boxMarginTop;
-				boxModel.boxMarginLeft = boxModel.boxMarginTop;
-			}
-
+			boxModel.linkProperties(propertiesToLink);
 			boxModel.positionBoxProperties();
 		},
+		linkProperties: function(properties) {
+			console.log('link properties');
+			var i, linkTB, linkRL, linkAll;
+
+			for ( i = 0; i < properties.length; i++ ) {
+
+				linkTB = $('#link' + properties[i] + 'TopBottom').is(':checked');
+				linkRL = $('#link' + properties[i] + 'RightLeft').is(':checked');
+				linkAll = $('#link' + properties[i] + 'All').is(':checked');
+
+				if ( linkTB ) {
+					boxModel['box' + properties[i] + 'Top'] = boxModel['box' + properties[i] + 'Top'];
+					boxModel['box' + properties[i] + 'Bottom'] = boxModel['box' + properties[i] + 'Top'];
+					$('#box' + properties[i] + 'Bottom').val(boxModel['box' + properties[i] + 'Top']);
+				}
+				if ( linkRL ) {
+					boxModel['box' + properties[i] + 'Left'] = boxModel['box' + properties[i] + 'Right'];
+					boxModel['box' + properties[i] + 'Left'] = boxModel['box' + properties[i] + 'Left'];
+					$('#box' + properties[i] + 'Left').val(boxModel['box' + properties[i] + 'Left']);
+				}
+				if ( linkAll ) {
+					boxModel['box' + properties[i] + 'Top'] = boxModel['box' + properties[i] + 'Top'];
+					boxModel['box' + properties[i] + 'Right'] = boxModel['box' + properties[i] + 'Top'];
+					boxModel['box' + properties[i] + 'Bottom'] = boxModel['box' + properties[i] + 'Top'];
+					boxModel['box' + properties[i] + 'Left'] = boxModel['box' + properties[i] + 'Top'];
+					$('#box' + properties[i] + 'Right').val(boxModel['box' + properties[i] + 'Top']);
+					$('#box' + properties[i] + 'Bottom').val(boxModel['box' + properties[i] + 'Top']);
+					$('#box' + properties[i] + 'Left').val(boxModel['box' + properties[i] + 'Top']);
+				}
+
+			}
+		},
 		generateCode: function(){
-			console.log('code');
 			var boxCode;
+			console.log('code');
 
 			boxCode  = '.box {\n';
 			boxCode += '    width: ' + boxModel.boxWidth + 'px;\n';
@@ -73,6 +91,7 @@ $(function(){
 			$('#boxCode').text(boxCode);
 		},
 		positionBoxProperties: function(){
+			console.log('position');
 			var boxWidth = boxModel.boxWidth;
 			var boxHeight = boxModel.boxHeight;
 
