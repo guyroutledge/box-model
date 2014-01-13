@@ -35,8 +35,87 @@ a:hover {
 	-webkit-transition:0.3s;
 	        transition:0.3s;
 }
+
+/* Property values in model via pseudo elements */
+.box-property-vertical,
+.box-property-horizontal {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:2000;
+}
+.box-property-horizontal {
+	width:100%;
+	border-top:1px solid #eee;
+	border-top:1px solid rgba(0, 0, 0, 0.1);
+}
+.box-property-vertical {
+	height:100%;
+	border-left:1px solid #eee;
+	border-left:1px solid rgba(0, 0, 0, 0.1);
+}
+.box-property-vertical:before,
+.box-property-vertical:after {
+	position:absolute;
+	left:-0.7em;
+	width:100%;
+
+	color:#999;
+	color:rgba(0,0,0,0.6);
+	font-size:0.75em;
+}
+.box-property-vertical:before {
+	content:attr(data-top);
+	top:-0.75em;
+}
+.box-property-vertical:after {
+	content:attr(data-bottom);
+	bottom:-0.75em;
+}
+.box-property-horizontal:before,
+.box-property-horizontal:after {
+	position:absolute;
+	margin-top:-0.75em;
+	width:2em;
+	height:100%;
+
+	color:#999;
+	color:rgba(0,0,0,0.6);
+	font-size:0.75em;
+	text-align:center;
+}
+.box-property-horizontal:before {
+	content:attr(data-left);
+	left:-1em;
+}
+.box-property-horizontal:after {
+	content:attr(data-right);
+	right:-1em;
+}
+.box-padding .box-property-vertical {
+	left:40%;
+}
+.box-border .box-property-vertical {
+	left:50%;
+}
+.box-margin .box-property-vertical {
+	left:60%;
+}
+.box-padding .box-property-horizontal {
+	top:40%;
+}
+.box-border .box-property-horizontal {
+	top:50%;
+}
+.box-margin .box-property-horizontal {
+	top:60%;
+}
 .box:hover .box-property {
 	background:#fff;
+}
+.box:hover .box-property-vertical,
+.box:hover .box-property-horizontal {
+	opacity:0;
 }
 .box-inner {
 	background:#9fc4e7;
@@ -45,7 +124,6 @@ a:hover {
 	font-family:'Ubuntu Mono', 'Courier New', monospace;
 	text-align:center;
 	line-height:1em;
-	z-index:30;
 }
 .box-inner:hover {
 	background:#9fc4e7!important;
@@ -69,26 +147,35 @@ a:hover {
 
 	background-color:#c2ddb6;
 	border:1px dashed #666;
-	z-index:20;
 }
 .box-padding:hover {
 	background-color:#c2ddb6!important;
 }
+.box-padding:hover .box-property-vertical,
+.box-padding:hover .box-property-horizontal {
+	opacity:1;
+}
 .box-margin {
 	background:#f8cb9c;
 	border:1px dashed #666;
-	z-index:0;
 }
 .box-margin:hover {
 	background:#f8cb9c!important;
 }
+.box-margin:hover .box-property-vertical,
+.box-margin:hover .box-property-horizontal {
+	opacity:1;
+}
 .box-border {
 	background:#feedbb;
 	border:1px solid #666;
-	z-index:10;
 }
 .box-border:hover {
 	background:#feedbb!important;
+}
+.box-border:hover .box-property-vertical,
+.box-border:hover .box-property-horizontal {
+	opacity:1;
 }
 
 

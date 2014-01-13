@@ -11,11 +11,12 @@ $(function(){
 
 		prependElements: function(){
 			boxModel.$box.prepend(
-				boxModel.$boxInner,
 				boxModel.$boxMargin,
+				boxModel.$boxBorder,
 				boxModel.$boxPadding,
-				boxModel.$boxBorder
+				boxModel.$boxInner
 			);
+			$('.box-property').append('<span class="box-property-vertical"></span><span class="box-property-horizontal"></span>');
 			$('.box-controls input').change(boxModel.getBoxProperties);
 			boxModel.getBoxProperties();
 			boxModel.showPropertyOnHover();
@@ -76,6 +77,23 @@ $(function(){
 				}
 
 			}
+		},
+		addDimensionsToModel: function(){
+			var properties = ['Padding', 'Margin', 'Border'];
+			var i;
+
+			for ( i = 0; i < properties.length; i++ ) {
+
+				boxModel['$box' + properties[i]].find('.box-property-vertical').attr({
+					'data-top': boxModel['box' + properties[i] + 'Top'],
+					'data-bottom' : boxModel['box' + properties[i] + 'Bottom']
+				}).next('.box-property-horizontal').attr({
+					'data-left': boxModel['box' + properties[i] + 'Left'],
+					'data-right': boxModel['box' + properties[i] + 'Right']
+				});
+
+			}
+
 		},
 		generateShorthand: function(property) {
 			var topAndBottomMatch = boxModel['box' + property + 'Top'] === boxModel['box' + property + 'Bottom'];
@@ -219,6 +237,7 @@ $(function(){
 			$('#generatedHeight').text(boxBorderHeight);
 
 			boxModel.generateCode();
+			boxModel.addDimensionsToModel();
 		}
 	};
 
