@@ -1,14 +1,61 @@
 <html>
 	<head>
 		<title>Box Model Demo</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="box-model.css">
 	</head>
 	<body>
 		<header>
 			<h1>Interactive box-model demo</h1>
+			<p>Adjust the sliders to see how the box changes and generate the necessary code.</p>
 		</header>
 
 		<div class="box"></div>
+
+		<aside class="box-controls">
+			<form>
+				<fieldset>
+					<legend>Dimensions</legend>
+					<label for="boxWidth">Width:</label>
+					<input type="range" min="0" max="500" name="boxWidth" id="boxWidth" value="200" step="5">
+					<label for="boxWidth">Height:</label>
+					<input type="range" min="0" max="500" name="boxHeight" id="boxHeight" value="200" step="5">
+				</fieldset>
+				<fieldset>
+					<legend>Padding</legend>
+					<label for="boxPaddingTop">Padding Top:</label>
+					<input type="range" min="0" max="100" name="boxPaddingTop" id="boxPaddingTop" value="20" step="5">
+					<label for="boxPaddingRight">Padding Right:</label>
+					<input type="range" min="0" max="100" name="boxPaddingRight" id="boxPaddingRight" value="20" step="5">
+					<label for="boxPaddingBottom">Padding Bottom:</label>
+					<input type="range" min="0" max="100" name="boxPaddingBottom" id="boxPaddingBottom" value="20" step="5">
+					<label for="boxPaddingLeft">Padding Left:</label>
+					<input type="range" min="0" max="100" name="boxPaddingLeft" id="boxPaddingLeft" value="20" step="5">
+				</fieldset>
+				<fieldset>
+					<legend>Margin</legend>
+					<label for="boxMarginTop">Margin Top:</label>
+					<input type="range" min="0" max="100" name="boxMarginTop" id="boxMarginTop" value="20" step="5">
+					<label for="boxMarginRight">Margin Right:</label>
+					<input type="range" min="0" max="100" name="boxMarginRight" id="boxMarginRight" value="20" step="5">
+					<label for="boxMarginBottom">Margin Bottom:</label>
+					<input type="range" min="0" max="100" name="boxMarginBottom" id="boxMarginBottom" value="20" step="5">
+					<label for="boxMarginLeft">Margin Left:</label>
+					<input type="range" min="0" max="100" name="boxMarginLeft" id="boxMarginLeft" value="20" step="5">
+				</fieldset>
+				<fieldset>
+					<legend>Border</legend>
+					<label for="boxBorderTop">Border Top:</label>
+					<input type="range" min="0" max="50" name="boxBorderTop" id="boxBorderTop" value="10" step="5">
+					<label for="boxBorderRight">Border Right:</label>
+					<input type="range" min="0" max="50" name="boxBorderRight" id="boxBorderRight" value="10" step="5">
+					<label for="boxBorderBottom">Border Bottom:</label>
+					<input type="range" min="0" max="50" name="boxBorderBottom" id="boxBorderBottom" value="10" step="5">
+					<label for="boxBorderLeft">Border Left:</label>
+					<input type="range" min="0" max="50" name="boxBorderLeft" id="boxBorderLeft" value="10" step="5">
+				</fieldset>
+			</form>
+		</aside>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
 		<script src="box-model.js"></script>

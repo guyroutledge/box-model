@@ -16,43 +16,25 @@ $(function(){
 				boxModel.$boxPadding,
 				boxModel.$boxBorder
 			);
-			boxModel.getBoxProperties();
+			$('.box-controls input').change(boxModel.getBoxProperties).trigger('change');
 		},
 		getBoxProperties: function(){
-			boxModel.boxWidth         = parseInt(boxModel.$box.css('width').replace('px', ''), 10);
-			boxModel.boxHeight        = parseInt(boxModel.$box.css('height').replace('px', ''), 10);
-			boxModel.boxMarginTop     = parseInt(boxModel.$box.css('marginTop').replace('px', ''), 10);
-			boxModel.boxMarginRight   = parseInt(boxModel.$box.css('marginRight').replace('px', ''), 10);
-			boxModel.boxMarginBottom  = parseInt(boxModel.$box.css('marginBottom').replace('px', ''), 10);
-			boxModel.boxMarginLeft    = parseInt(boxModel.$box.css('marginLeft').replace('px', ''), 10);
-			boxModel.boxPaddingTop    = parseInt(boxModel.$box.css('paddingTop').replace('px', ''), 10);
-			boxModel.boxPaddingRight  = parseInt(boxModel.$box.css('paddingRight').replace('px', ''), 10);
-			boxModel.boxPaddingBottom = parseInt(boxModel.$box.css('paddingBottom').replace('px', ''), 10);
-			boxModel.boxPaddingLeft   = parseInt(boxModel.$box.css('paddingLeft').replace('px', ''), 10);
-			boxModel.boxBorderTop     = parseInt(boxModel.$box.css('borderTopWidth').replace('px', ''), 10);
-			boxModel.boxBorderRight   = parseInt(boxModel.$box.css('borderRightWidth').replace('px', ''), 10);
-			boxModel.boxBorderBottom  = parseInt(boxModel.$box.css('borderBottomWidth').replace('px', ''), 10);
-			boxModel.boxBorderLeft    = parseInt(boxModel.$box.css('borderLeftWidth').replace('px', ''), 10);
+			boxModel.boxWidth         = parseInt($('#boxWidth').val(), 10);
+			boxModel.boxHeight        = parseInt($('#boxHeight').val(), 10);
+			boxModel.boxMarginTop     = parseInt($('#boxMarginTop').val(), 10);
+			boxModel.boxMarginRight   = parseInt($('#boxMarginRight').val(), 10);
+			boxModel.boxMarginBottom  = parseInt($('#boxMarginBottom').val(), 10);
+			boxModel.boxMarginLeft    = parseInt($('#boxMarginLeft').val(), 10);
+			boxModel.boxPaddingTop    = parseInt($('#boxPaddingTop').val(), 10);
+			boxModel.boxPaddingRight  = parseInt($('#boxPaddingRight').val(), 10);
+			boxModel.boxPaddingBottom = parseInt($('#boxPaddingBottom').val(), 10);
+			boxModel.boxPaddingLeft   = parseInt($('#boxPaddingLeft').val(), 10);
+			boxModel.boxBorderTop     = parseInt($('#boxBorderTop').val(), 10);
+			boxModel.boxBorderRight   = parseInt($('#boxBorderRight').val(), 10);
+			boxModel.boxBorderBottom  = parseInt($('#boxBorderBottom').val(), 10);
+			boxModel.boxBorderLeft    = parseInt($('#boxBorderLeft').val(), 10);
 
 			boxModel.positionBoxProperties();
-		},
-		setBoxProperties: function(){
-			boxModel.$box.css({
-				width: '400px',
-				height: '300px',
-				paddingTop: '10px',
-				paddingRight: '20px',
-				paddingBottom: '5px',
-				paddingLeft: '10px',
-				marginTop: '20px',
-				marginRight: '10px',
-				marginBottom: '10px',
-				marginLeft: '20px',
-				borderTopWidth: '5px',
-				borderRightWidth: '10px',
-				borderBottomWidth: '10px',
-				borderLeftWidth: '15px'
-			});
 		},
 		positionBoxProperties: function(){
 			var boxWidth = boxModel.boxWidth;
@@ -79,7 +61,7 @@ $(function(){
 			// Box
 			// reposition to avoid overlap of page elements
 			var boxTop = boxMarginTop + boxBorderTop + boxPaddingTop + 6;
-			var boxLeft = boxPaddingLeft;
+			var boxLeft = boxMarginLeft + boxBorderLeft + boxPaddingLeft;
 
 			// Margin Box
 			var boxMarginWidth = boxWidth + boxMarginLeftRight + boxPaddingLeftRight + boxBorderLeftRight;
@@ -93,32 +75,37 @@ $(function(){
 			var boxPaddingWidth = boxWidth + boxPaddingLeftRight + 2;
 			var boxPaddingHeight = boxHeight + boxPaddingTopBottom + 2;
 
-			if ( boxMarginTop > 0 ) {
+			if ( boxMarginTop >= 0 ) {
 				boxMarginTop = (boxMarginTop * -1) - boxPaddingTop - boxBorderTop;
 			}
-			if ( boxMarginLeft > 0 ) {
+			if ( boxMarginLeft >= 0 ) {
 				boxMarginLeft = boxMarginLeft * -1 - boxPaddingLeft - boxBorderLeft;
 			}
-			if ( boxBorderTop > 0 ) {
+			if ( boxBorderTop >= 0 ) {
 				boxBorderTop = (boxBorderTop * -1) - boxPaddingTop;
 			}
-			if ( boxBorderLeft > 0 ) {
+			if ( boxBorderLeft >= 0 ) {
 				boxBorderLeft = (boxBorderLeft * -1) - boxPaddingLeft;
 			}
-			if ( boxPaddingTop > 0 ) {
+			if ( boxPaddingTop >= 0 ) {
 				boxPaddingTop = boxPaddingTop * -1;
 			}
-			if ( boxPaddingLeft > 0 ) {
+			if ( boxPaddingLeft >= 0 ) {
 				boxPaddingLeft = boxPaddingLeft * -1;
 			}
 
 			boxModel.$box.css({
 				top: boxTop,
-				left: boxLeft
+				left: boxLeft,
+				width: boxWidth + 'px',
+				height: boxHeight + 'px'
 			});
 			boxModel.$boxInner.css({
-				width: boxWidth,
-				height: boxHeight
+				width: boxWidth + 'px',
+				height: boxHeight + 'px'
+			}).attr({
+				'data-width': boxWidth,
+				'data-height': boxHeight
 			});
 			boxModel.$boxPadding.css({
 				width: boxPaddingWidth + 'px',
