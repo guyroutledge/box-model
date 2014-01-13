@@ -182,6 +182,7 @@ $(function(){
 				'data-width': boxWidth,
 				'data-height': boxHeight
 			});
+
 			boxModel.$boxPadding.css({
 				width: boxPaddingWidth + 'px',
 				height: boxPaddingHeight + 'px',
@@ -194,6 +195,12 @@ $(function(){
 				top: boxBorderTop + 'px',
 				left: boxBorderLeft + 'px'
 			});
+
+			if ( boxModel.boxSizing === 'content-box' ) {
+				$('#generatedWidth').text(boxBorderWidth);
+				$('#generatedHeight').text(boxBorderHeight);
+			}
+
 			boxModel.$boxMargin.css({
 				width: boxMarginWidth + 'px',
 				height: boxMarginHeight + 'px',
