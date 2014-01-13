@@ -258,7 +258,7 @@ input[type="range"] {
 	left:0;
 
 	width:100%;
-	padding:1em 3em 3em;
+	padding:1em 3em 1.5em;
 
 	background:#eee;
 	background:rgba(240, 240, 240, 0.8);
@@ -267,4 +267,17 @@ input[type="range"] {
 }
 .box-code h2 {
 	margin-bottom:1em;
+}
+
+/* Twitter Buttons */
+#twitter-widget-0,
+#twitter-widget-1 {
+	display:inline-block;
+	vertical-align:middle;
+}
+#twitter-widget-1 {
+	margin-left:0.5em;
+}
+#twitter-widget-0 {
+	width:90px!important;
 }
